@@ -32,35 +32,37 @@ const App: React.FC = () => {
     }));
     setResults(initialResults);
 
-    const generationPromises = validPrompts.map((prompt, index) =>
-      generateImageVariation(originalImage, prompt.value)
-        .then(base64Image => {
-          setResults(prev =>
-            prev.map((r, i) =>
-              i === index ? { ...r, imageUrl: `data:image/png;base64,${base64Image}`, isLoading: false } : r
-            )
-          );
-        })
-        .catch(error => {
-          let errorMessage = 'Bild konnte nicht erstellt werden.';
-          if (error instanceof Error) {
-              if (error.message.includes('429') || error.message.includes('RESOURCE_EXHAUSTED')) {
-                  errorMessage = "Ratenlimit erreicht. Bitte warten Sie einen Moment und versuchen Sie es erneut.";
-              } else if (error.message.startsWith('API Error:')) {
-                  errorMessage = error.message.replace('API Error: ', '');
-              } else {
-                  errorMessage = error.message;
-              }
-          }
-          setResults(prev =>
-            prev.map((r, i) =>
-              i === index ? { ...r, error: errorMessage, isLoading: false } : r
-            )
-          );
-        })
-    );
+    for (const prompt of validPrompts) {
+        try {
+            const base64Image = await generateImageVariation(originalImage, prompt.value);
+            setResults(prev =>
+                prev.map(r =>
+                    r.prompt === prompt.value
+                        ? { ...r, imageUrl: `data:image/png;base64,${base64Image}`, isLoading: false }
+                        : r
+                )
+            );
+        } catch (error) {
+            let errorMessage = 'Bild konnte nicht erstellt werden.';
+            if (error instanceof Error) {
+                if (error.message.includes('429') || error.message.includes('RESOURCE_EXHAUSTED')) {
+                    errorMessage = "Ratenlimit erreicht. Bitte warten Sie einen Moment und versuchen Sie es erneut.";
+                } else if (error.message.startsWith('API Error:')) {
+                    errorMessage = error.message.replace('API Error: ', '');
+                } else {
+                    errorMessage = error.message;
+                }
+            }
+            setResults(prev =>
+                prev.map(r =>
+                    r.prompt === prompt.value
+                        ? { ...r, error: errorMessage, isLoading: false }
+                        : r
+                )
+            );
+        }
+    }
 
-    await Promise.allSettled(generationPromises);
     setIsGenerating(false);
   }, [originalImage, prompts]);
 
