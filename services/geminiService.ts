@@ -1,12 +1,13 @@
-
 import { GoogleGenAI, Modality } from "@google/genai";
 import { ImageFile } from '../types';
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
+const apiKey = import.meta.env.VITE_API_KEY;
+
+if (!apiKey) {
+    throw new Error("VITE_API_KEY environment variable not set");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey });
 
 export const generateImageVariation = async (
   originalImage: ImageFile,
