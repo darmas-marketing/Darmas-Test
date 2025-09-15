@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Social Ad Image Variator",
+  "description": "Upload a social media ad image and provide multiple prompts to generate creative variations using Gemini.",
+  "requestFramePermissions": []
+}
