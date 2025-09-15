@@ -15,8 +15,8 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
         </svg>
 
-        <h3 className="text-xl font-semibold text-gray-700">Your generated images will appear here.</h3>
-        <p className="mt-2 max-w-md">Upload an image, add some prompts, and click "Generate Variations" to see the magic happen.</p>
+        <h3 className="text-xl font-semibold text-gray-700">Ihre generierten Bilder werden hier angezeigt.</h3>
+        <p className="mt-2 max-w-md">Laden Sie ein Bild hoch, fügen Sie einige Prompts hinzu und klicken Sie auf „Variationen erstellen“, um die Magie zu erleben.</p>
       </div>
     );
   }
@@ -29,14 +29,14 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
             {result.isLoading && <Loader />}
             {result.error && (
               <div className="p-4 text-center text-red-600">
-                <p className="font-semibold">Generation Failed</p>
+                <p className="font-semibold">Erstellung fehlgeschlagen</p>
                 <p className="text-sm">{result.error}</p>
               </div>
             )}
             {result.imageUrl && (
               <img
                 src={result.imageUrl}
-                alt={`Variation for: ${result.prompt}`}
+                alt={`Variation für: ${result.prompt}`}
                 className="w-full h-full object-cover"
               />
             )}

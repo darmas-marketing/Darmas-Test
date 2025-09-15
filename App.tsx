@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
   const handleGenerateVariations = useCallback(async () => {
     if (!originalImage || prompts.every(p => !p.value.trim())) {
-      alert("Please upload an image and add at least one valid prompt.");
+      alert("Bitte laden Sie ein Bild hoch und geben Sie mindestens einen gültigen Prompt ein.");
       return;
     }
 
@@ -42,10 +42,10 @@ const App: React.FC = () => {
           );
         })
         .catch(error => {
-          let errorMessage = 'Failed to generate image.';
+          let errorMessage = 'Bild konnte nicht erstellt werden.';
           if (error instanceof Error) {
               if (error.message.includes('429') || error.message.includes('RESOURCE_EXHAUSTED')) {
-                  errorMessage = "Rate limit reached. Please wait a moment and try again.";
+                  errorMessage = "Ratenlimit erreicht. Bitte warten Sie einen Moment und versuchen Sie es erneut.";
               } else if (error.message.startsWith('API Error:')) {
                   errorMessage = error.message.replace('API Error: ', '');
               } else {
@@ -67,7 +67,7 @@ const App: React.FC = () => {
   const handleDownloadAll = async () => {
     const successfulResults = results.filter(r => r.imageUrl);
     if (successfulResults.length === 0) {
-      alert("No successful images to download.");
+      alert("Keine erfolgreichen Bilder zum Herunterladen vorhanden.");
       return;
     }
 
@@ -91,7 +91,7 @@ const App: React.FC = () => {
         
         const link = document.createElement('a');
         link.href = URL.createObjectURL(content);
-        link.download = 'generated_variations.zip';
+        link.download = 'erstellte_variationen.zip';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -99,7 +99,7 @@ const App: React.FC = () => {
 
     } catch (error) {
         console.error("Error creating ZIP file:", error);
-        alert("An error occurred while creating the ZIP file.");
+        alert("Beim Erstellen der ZIP-Datei ist ein Fehler aufgetreten.");
     } finally {
         setIsZipping(false);
     }
@@ -131,10 +131,10 @@ const App: React.FC = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                      Generating...
+                      Wird erstellt...
                     </>
                   ) : (
-                    'Generate Variations'
+                    'Variationen erstellen'
                   )}
                 </button>
               </div>
@@ -142,12 +142,12 @@ const App: React.FC = () => {
           </aside>
           <div className="lg:col-span-8 xl:col-span-9 bg-white p-6 rounded-xl border border-gray-200 min-h-[600px]">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-semibold text-gray-800">3. Generated Variations</h3>
+                <h3 className="text-xl font-semibold text-gray-800">3. Erstellte Variationen</h3>
                 <button
                     onClick={handleDownloadAll}
                     disabled={!canDownload}
                     className="flex items-center gap-2 bg-green-50 text-green-700 hover:bg-green-100 font-semibold py-2 px-4 rounded-lg transition-colors text-sm disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed"
-                    aria-label="Download all generated images as a ZIP file"
+                    aria-label="Alle erstellten Bilder als ZIP-Datei herunterladen"
                 >
                     {isZipping ? (
                         <>
@@ -155,12 +155,12 @@ const App: React.FC = () => {
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            Zipping...
+                            Wird gepackt...
                         </>
                     ) : (
                         <>
                             <DownloadIcon className="w-4 h-4" />
-                            Download All (.zip)
+                            Alle herunterladen (.zip)
                         </>
                     )}
                 </button>

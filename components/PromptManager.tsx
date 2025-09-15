@@ -27,13 +27,13 @@ const PromptManager: React.FC<PromptManagerProps> = ({ prompts, setPrompts }) =>
   return (
     <div className="w-full bg-white p-6 rounded-xl border border-gray-200 mt-6">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold text-gray-800">2. Add Variation Prompts</h3>
+        <h3 className="text-lg font-semibold text-gray-800">2. Variations-Prompts hinzufügen</h3>
         <button
           onClick={addPrompt}
           className="flex items-center gap-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-semibold py-2 px-4 rounded-lg transition-colors text-sm"
         >
           <PlusIcon className="w-4 h-4" />
-          Add Prompt
+          Prompt hinzufügen
         </button>
       </div>
       <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
@@ -44,20 +44,20 @@ const PromptManager: React.FC<PromptManagerProps> = ({ prompts, setPrompts }) =>
               type="text"
               value={prompt.value}
               onChange={(e) => updatePrompt(prompt.id, e.target.value)}
-              placeholder="e.g., Change background to a beach scene"
+              placeholder="z.B. Hintergrund in eine Strandszene ändern"
               className="flex-grow bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5"
             />
             <button
               onClick={() => removePrompt(prompt.id)}
               className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
-              aria-label="Remove prompt"
+              aria-label="Prompt entfernen"
             >
               <TrashIcon />
             </button>
           </div>
         ))}
          {prompts.length === 0 && (
-            <p className="text-sm text-gray-400 text-center py-4">Add a prompt to get started.</p>
+            <p className="text-sm text-gray-400 text-center py-4">Fügen Sie einen Prompt hinzu, um zu beginnen.</p>
         )}
       </div>
     </div>

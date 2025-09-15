@@ -1,5 +1,5 @@
 {
-  "name": "Copy of Social Ad Image Variator",
-  "description": "Upload a social media ad image and provide multiple prompts to generate creative variations using Gemini.",
+  "name": "Social Ad Bild-Variator",
+  "description": "Laden Sie ein Social-Media-Werbebild hoch und geben Sie mehrere Prompts ein, um mit Gemini kreative Variationen zu erstellen.",
   "requestFramePermissions": []
 }
